@@ -1,17 +1,17 @@
 {
   "categorias": [
     {
-      "titulo": "Front End",
-      "link": "https://www.alura.com.br/formacao-front-end",
+      "titulo": "Official Videos",
+      "link": "Aesthetic Perfection - Supernatural",
       "cor": "#6BD1FF",
       "link_extra": {
-        "text": "Formação de Front End na Alura",
-        "url": "https://www.alura.com.br/cursos-online-front-end"
+        "text": "Official Videos Playlist",
+        "url": "https://www.youtube.com/watch?v=oxl9UpmWYO8&list=PL0867F9C9741676CF"
       },
       "videos": [
         {
-          "titulo": "O que faz uma desenvolvedora front-end? #HipstersPontoTube",
-          "url": "https://www.youtube.com/watch?v=ZY3-MFxVdEw"
+          "titulo": "New Video! #Supernatural",
+          "url": "https://www.youtube.com/watch?v=DNaT1I-i99Y"
         },
         {
           "titulo": "SEO com React",

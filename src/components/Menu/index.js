@@ -2,15 +2,16 @@ import React from "react";
 import Logo from "../../assets/img/devflix.png";
 import "./Menu.css";
 import Button from "../Button";
+import { Link } from "react-router-dom";
 
 export default function Menu() {
   return (
     <nav className="Menu">
-      <a href="/">
+      <Link to="/">
         <img src={Logo} alt="DevFlix logo" className="Logo" />
-      </a>
+      </Link>
 
-      <Button as="a" href="/" className="ButtonLink">
+      <Button as={Link} className="ButtonLink" to="/cadastro/video">
         Novo Video
       </Button>
     </nav>
