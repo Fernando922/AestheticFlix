@@ -34,7 +34,9 @@ function CadastroCategoria() {
   }
 
   useEffect(() => {
-    const URL = "http://localhost:4000/categorias";
+    const URL = window.location.hostname.includes("localhost")
+      ? "http://localhost:4000/categorias"
+      : "https://aesthetic-flix.herokuapp.com/categorias";
     fetch(URL)
       .then((res) => {
         return res.json();
