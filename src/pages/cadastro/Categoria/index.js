@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import PageDefault from "../../../components/PageDefault";
 import FormField from "../../../components/FormField";
+import Button from "../../../components/Button";
 
 function CadastroCategoria() {
   const valoresIniciais = {
@@ -32,44 +33,53 @@ function CadastroCategoria() {
     setNovaCategoria(valoresIniciais);
   }
 
+  useEffect(() => {
+    const URL = "http://localhost:4000/categorias";
+    fetch(URL)
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => setCategorias([...res]));
+  }, []);
+
   return (
     <PageDefault>
-      <h1>Cadastro de Categoria: {novaCategoria["nome"]}</h1>
+      <h1>Cadastro de Categoria: {novaCategoria.nome}</h1>
 
       <form onSubmit={handleSubmit}>
         <FormField
           type="text"
           name="nome"
-          label="Nome da Categoria:"
+          label="Nome da Categoria"
           value={novaCategoria.nome}
           onChange={handleChange}
         />
 
-        <div>
-          <label>Descrição</label>
-          <textarea
-            type="text"
-            name="descricao"
-            onChange={handleChange}
-            value={novaCategoria["descricao"]}
-          />
-        </div>
+        <FormField
+          label="descrição"
+          type="textarea"
+          name="descricao"
+          onChange={handleChange}
+          value={novaCategoria.descricao}
+        />
 
         <FormField
           type="color"
           name="cor"
-          label="Cor:"
+          label="Cor"
           value={novaCategoria.cor}
           onChange={handleChange}
         />
 
-        <button>Cadastrar</button>
+        <Button>Cadastrar</Button>
+
+        {!categorias.length && <div>Loading...</div>}
 
         <ul>
           {categorias.map((categoria, index) => (
-            <li
-              key={index}
-            >{`${categoria.nome} - ${categoria.descricao} - ${categoria.cor}`}</li>
+            <li key={index}>
+              {`${categoria.nome} - ${categoria.descricao} - ${categoria.cor}`}
+            </li>
           ))}
         </ul>
       </form>
