@@ -3,34 +3,27 @@ import { Link } from "react-router-dom";
 import PageDefault from "../../../components/PageDefault";
 import FormField from "../../../components/FormField";
 import Button from "../../../components/Button";
+import useForm from "../../../hooks/useForm";
 
 function CadastroCategoria() {
   const valoresIniciais = {
-    nome: "",
+    titulo: "",
     descricao: "",
     cor: "#000000",
   };
 
+  const { handleChange, values, clearForm } = useForm(valoresIniciais);
+
   const [categorias, setCategorias] = useState([]);
-  const [novaCategoria, setNovaCategoria] = useState(valoresIniciais);
-
-  function setValue(chave, valor) {
-    setNovaCategoria({ ...novaCategoria, [chave]: valor });
-  }
-
-  function handleChange({ target }) {
-    setValue(target.getAttribute("name"), target.value);
-  }
 
   function handleSubmit(e) {
-    console.log(novaCategoria);
     e.preventDefault();
-    if (!novaCategoria.nome || !novaCategoria.descricao) {
+    if (!values.titulo || !values.descricao) {
       return alert("Preencha todos os campos!");
     }
 
-    setCategorias([...categorias, novaCategoria]);
-    setNovaCategoria(valoresIniciais);
+    setCategorias([...categorias, values]);
+    clearForm();
   }
 
   useEffect(() => {
@@ -39,6 +32,7 @@ function CadastroCategoria() {
       : "https://aesthetic-flix.herokuapp.com/categorias";
     fetch(URL)
       .then((res) => {
+        console.log(res);
         return res.json();
       })
       .then((res) => setCategorias([...res]));
@@ -46,14 +40,14 @@ function CadastroCategoria() {
 
   return (
     <PageDefault>
-      <h1>Cadastro de Categoria: {novaCategoria.nome}</h1>
+      <h1>Cadastro de Categoria: {values.titulo}</h1>
 
       <form onSubmit={handleSubmit}>
         <FormField
           type="text"
-          name="nome"
+          name="titulo"
           label="Nome da Categoria"
-          value={novaCategoria.nome}
+          value={values.titulo}
           onChange={handleChange}
         />
 
@@ -62,14 +56,14 @@ function CadastroCategoria() {
           type="textarea"
           name="descricao"
           onChange={handleChange}
-          value={novaCategoria.descricao}
+          value={values.descricao}
         />
 
         <FormField
           type="color"
           name="cor"
           label="Cor"
-          value={novaCategoria.cor}
+          value={values.cor}
           onChange={handleChange}
         />
 
@@ -79,9 +73,7 @@ function CadastroCategoria() {
 
         <ul>
           {categorias.map((categoria, index) => (
-            <li key={index}>
-              {`${categoria.nome} - ${categoria.descricao} - ${categoria.cor}`}
-            </li>
+            <li key={index}>{`${categoria.titulo}`}</li>
           ))}
         </ul>
       </form>
